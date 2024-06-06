@@ -17,6 +17,7 @@ class TodoListFragment : Fragment() {
     private lateinit var binding:FragmentTodoListBinding
     private lateinit var viewModel: ListTodoViewModel
     private val todoListAdapter = TodoListAdapter(arrayListOf(), {item -> viewModel.clearTask(item)})
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +39,10 @@ class TodoListFragment : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
         observeViewModel()
+    }
+
+    fun onTodoChecked(uuid: Int) {
+        viewModel.checkTask(uuid)
     }
 
     fun observeViewModel(){

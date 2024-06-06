@@ -2,6 +2,7 @@ package com.misoramen.todoapp.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.misoramen.todoapp.databinding.TodoItemLayoutBinding
 import com.misoramen.todoapp.model.Todo
@@ -21,12 +22,20 @@ class TodoListAdapter(val todoList:ArrayList<Todo>, val adapterOnClick: (Todo) -
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        holder.binding.checkTask.text = todoList[position].title
+        holder.binding.checkTask.text = todoList[position].title + " " + todoList[position].priority
+
+        holder.binding.imgEdit.setOnClickListener {
+            val action = TodoListFragmentDirections.actionTodoListFragmentToEditTodoFragment(todoList[position].uuid)
+            Navigation.findNavController(it).navigate(action)
+        }
 
         holder.binding.checkTask.setOnCheckedChangeListener() {
-            compoundButton, b ->
-            if(compoundButton.isPressed){
+            compoundButton, isChecked ->
+            if(isChecked){
                 adapterOnClick(todoList[position])
+            }
+            else{
+//                listener?.onTodoChecked(todoList[position].uuid)
             }
         }
     }
@@ -36,5 +45,4 @@ class TodoListAdapter(val todoList:ArrayList<Todo>, val adapterOnClick: (Todo) -
         todoList.addAll(newTodoList)
         notifyDataSetChanged()
     }
-
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.misoramen.todoapp.model.Todo
 import com.misoramen.todoapp.model.TodoDatabase
+import com.misoramen.todoapp.util.buildDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,7 +27,7 @@ class ListTodoViewModel(application: Application)
         loadingLD.value = true
         todoLoadErrorLD.value = false
         launch {
-            val db = TodoDatabase.buildDatabase(
+            val db = buildDb(
                 getApplication()
             )
             todoLD.postValue(db.todoDao().selectAllTodo())
@@ -34,9 +35,16 @@ class ListTodoViewModel(application: Application)
         }
     }
 
+    fun checkTask(uuid: Int){
+        launch {
+            val db = buildDb(getApplication())
+            db.todoDao().checked(uuid)
+        }
+    }
+
     fun clearTask(todo: Todo){
         launch {
-            val db = TodoDatabase.buildDatabase(
+            val db = buildDb(
                 getApplication()
             )
             db.todoDao().deleteTodo(todo)
