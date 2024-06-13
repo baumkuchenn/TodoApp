@@ -32,3 +32,9 @@ val MIGRATION_2_3 = object: Migration(2,3){
         database.execSQL("ALTER TABLE todo ADD COLUMN is_done INTEGER DEFAULT 0 not null")
     }
 }
+
+val MIGRATION_3_4 = object: Migration(3,4){
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE todo ADD COLUMN todo_date INTEGER DEFAULT 0 not null")
+    }
+}
