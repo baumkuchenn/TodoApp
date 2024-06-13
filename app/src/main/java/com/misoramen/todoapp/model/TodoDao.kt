@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface TodoDao {
@@ -22,6 +23,9 @@ interface TodoDao {
 
     @Query("UPDATE todo SET is_done= 1 WHERE uuid= :uuid")
     fun checked(uuid: Int)
+
+    @Update()
+    fun updateTodo(todo: Todo)
 
     @Delete
     fun deleteTodo(todo:Todo)

@@ -7,10 +7,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.misoramen.todoapp.model.TodoDatabase
 
 val DB_NAME = "newtododb"
-fun buildDb(context: Context): TodoDatabase{
-    val db = Room.databaseBuilder(context, TodoDatabase::class.java, DB_NAME)
-        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
-        .build()
+//fun buildDb(context: Context): TodoDatabase{
+//    val db = Room.databaseBuilder(context, TodoDatabase::class.java, DB_NAME)
+//        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+//        .build()
+//    return db
+//}
+
+//Panggil dari method di ToDoDatabase
+fun buildDb(context: Context): TodoDatabase {
+    val db = TodoDatabase.buildDatabase(context)
     return db
 }
 

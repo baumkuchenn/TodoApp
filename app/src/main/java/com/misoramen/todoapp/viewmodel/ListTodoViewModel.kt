@@ -35,10 +35,10 @@ class ListTodoViewModel(application: Application)
         }
     }
 
-    fun checkTask(uuid: Int){
+    fun checkTask(todo: Todo){
         launch {
             val db = buildDb(getApplication())
-            db.todoDao().checked(uuid)
+            db.todoDao().checked(todo.uuid)
         }
     }
 

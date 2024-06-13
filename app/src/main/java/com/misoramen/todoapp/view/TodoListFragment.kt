@@ -16,7 +16,7 @@ import com.misoramen.todoapp.viewmodel.ListTodoViewModel
 class TodoListFragment : Fragment() {
     private lateinit var binding:FragmentTodoListBinding
     private lateinit var viewModel: ListTodoViewModel
-    private val todoListAdapter = TodoListAdapter(arrayListOf(), {item -> viewModel.clearTask(item)})
+    private val todoListAdapter = TodoListAdapter(arrayListOf(), {item -> viewModel.checkTask(item)})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +39,6 @@ class TodoListFragment : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
         observeViewModel()
-    }
-
-    fun onTodoChecked(uuid: Int) {
-        viewModel.checkTask(uuid)
     }
 
     fun observeViewModel(){
